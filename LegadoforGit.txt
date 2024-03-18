@@ -1,17 +1,62 @@
+What is GIT
+
+Git: Imagine Git as your personal diary where you write down everything you do in your project. It's like having a notebook on your computer where you jot down every change you make to your project's files. This diary (or Git) lives on your computer, and it's your own private space where you can keep track of your project's history. You can add new entries (commits), create different sections (branches) to work on separate tasks, and go back in time to see what your project looked like at a specific point.
+
+
+What is GITHUB
+GitHub: Now, think of GitHub as a library where you can store copies of your diary (Git repository) and share it with others. It's like having a copy of your diary in a public space where other people can read it, make suggestions, and even contribute their own entries. GitHub hosts your project online, allowing you to share it with collaborators, showcase your work to the world, and access it from anywhere with an internet connection. So, while Git is your personal diary on your computer, GitHub is like a public library where you can store and share copies of your diary with others.
+
+===================================================
+
+
+===================================================
+
+GITHUB as your remote HUB 
+By default, a GitHub repository (like https://github.com/legado22/adeola98) typically has a default branch named main or master, depending on the repository settings. This default branch contains the primary line of development for the project.
+
+
+GIT as your local Hub
+You can refer to the directory C:\Users\ooladipupo\Documents\Devops as a repository if it contains a .git directory. The presence of the .git directory indicates that the directory is a Git repository, which means it tracks changes to files and contains all the necessary Git metadata.
+
+======================================================
+
+=====================================================
+
+Commands in GIT
+This command will check if there is an existing repository
+git remote -v
+
+This command will initialize git in the current directory that you are. 
+git init
+
+This command will link your Git [Local repo] to Github[Remote Repo]
+git remote add origin <url of the remote repository>
+git config --global user.name "Your GitHub Username"
+git config --global user.email "Your GitHub Email Address"
+
+
+git pull origin main
+
+If showing this errors
+
+From https://github.com/legado22/adeola98
+ * branch            main       -> FETCH_HEAD
+fatal: refusing to merge unrelated histories
+
+THEN RUN:
+git pull origin main --allow-unrelated-histories
+
+THEN RUN:
+git fetch origin main
+
+THEN:
+
+git push -u origin main
+
 git add <name of the files> 
 The command git add <the filename> will add the file named <file name> to the staging area in your Git repository
 
-To clone your repositiry to your local machine
-git clone https://gitlab.com/legado4/newone.git
-Enter user name and password
-============================
-git commit -m "Your commit message"
-This command will commit your message, meaning it will take it from the staging area to the commit
-===============================
-Push Changes to Remote Repository: If you're ready to share your changes with others or if you want to back up your changes to a remote repository (like GitHub, GitLab, or Bitbucket), you can use the git push command to push your commits to the remote repository. 
-git pull origin main
-git push origin main
-==============================
+
 git log 
 To check the logs 
 git log --oneline  
