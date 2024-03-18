@@ -1,0 +1,17 @@
+Command to build a an image
+docker build -t <python-image> .
+To run an image
+docker run -p 8080:8080 your-image-name
+++++++++++++++++++++++++++++++
+To confirm images built?
+docker images
+++++++++++++++++++++++++
+To push the image to docker registry
+docker push <image_name>:<tag>
+docker login -u lesmarkoladipupo402@gmail.com -p Kibana2023+
+docker push olalekan1989/python:latest
+==============================
+
+To build a container from Man image
+docker run -d -p 8080:80 <imagename:tag>
+

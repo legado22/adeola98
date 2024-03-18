@@ -1,0 +1,91 @@
+This Python script will provision an azure VM 
+
+from azure.identity import DefaultAzureCredential
+from azure.mgmt.compute import ComputeManagementClient
+from azure.mgmt.network import NetworkManagementClient
+from azure.mgmt.compute.models import HardwareProfile, NetworkProfile, OSProfile, \
+    StorageProfile, VirtualHardDisk, VirtualMachine, VirtualMachineProperties, \
+    OSProfile, WindowsConfiguration, LinuxConfiguration, DataDisk
+
+# Set your Azure subscription ID and resource group name
+subscription_id = 'your_subscription_id'
+resource_group_name = 'your_resource_group_name'
+location = 'your_location'
+
+# Initialize Azure credentials
+credential = DefaultAzureCredential()
+
+# Initialize Compute and Network management clients
+compute_client = ComputeManagementClient(credential, subscription_id)
+network_client = NetworkManagementClient(credential, subscription_id)
+
+# Define VM parameters
+vm_name = 'your_vm_name'
+vm_size = 'Standard_DS2_v2'
+admin_username = 'your_admin_username'
+admin_password = 'your_admin_password'
+image_reference = {
+    'publisher': 'MicrosoftWindowsServer',
+    'offer': 'WindowsServer',
+    'sku': '2019-Datacenter',
+    'version': 'latest'
+}
+os_type = 'Windows'  # Or 'Linux' for Linux VM
+network_interface_name = 'your_network_interface_name'
+vnet_name = 'your_vnet_name'
+subnet_name = 'your_subnet_name'
+
+# Create NIC
+network_interface_params = {
+    'location': location,
+    'ip_configurations': [{
+        'name': 'ipconfig1',
+        'subnet': {'id': subnet_id}
+    }]
+}
+network_interface = network_client.network_interfaces.create_or_update(
+    resource_group_name, network_interface_name, network_interface_params
+)
+
+# Create VM
+vm_params = {
+    'location': location,
+    'hardware_profile': {
+        'vm_size': vm_size
+    },
+    'storage_profile': {
+        'image_reference': image_reference
+    },
+    'os_profile': {
+        'computer_name': vm_name,
+        'admin_username': admin_username,
+        'admin_password': admin_password
+    },
+    'network_profile': {
+        'network_interfaces': [{
+            'id': network_interface.id
+        }]
+    }
+}
+
+if os_type == 'Windows':
+    vm_params['os_profile']['windows_configuration'] = {
+        'provision_vm_agent': True
+    }
+else:
+    vm_params['os_profile']['linux_configuration'] = {
+        'disable_password_authentication': False
+    }
+
+vm = compute_client.virtual_machines.create_or_update(
+    resource_group_name, vm_name, vm_params
+)
+
+print("VM created successfully.")
+
+==============================================
+
+
+
+
+

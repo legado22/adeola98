@@ -1,0 +1,34 @@
+git add <name of the files> 
+The command git add <the filename> will add the file named <file name> to the staging area in your Git repository
+
+To clone your repositiry to your local machine
+git clone https://gitlab.com/legado4/newone.git
+Enter user name and password
+============================
+git commit -m "Your commit message"
+This command will commit your message, meaning it will take it from the staging area to the commit
+===============================
+Push Changes to Remote Repository: If you're ready to share your changes with others or if you want to back up your changes to a remote repository (like GitHub, GitLab, or Bitbucket), you can use the git push command to push your commits to the remote repository. 
+git pull origin main
+git push origin main
+==============================
+git log 
+To check the logs 
+git log --oneline  
+to show one line of logs
+=======================
+git branch <nameof branch>
+To create a branch in Git
+'git branch'
+to see the list of the branch
+git switch <branchname>
+to switch to branch name
+git branch -d <name of the branch created>
+to delete a branch
+=======================
+git merge -m "merge fixtemp back to main" <name of the branch I created>
+
+
+
+
+

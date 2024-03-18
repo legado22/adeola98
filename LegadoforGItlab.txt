@@ -1,0 +1,7 @@
+=========================================
+To push an image to Gitlab registry?
+docker login registry.gitlab.com
+docker build -t registry.gitlab.com/legado4/newone .
+Enter Username and password
+docker build -t registry.gitlab.com/legado4/newone .
+docker push registry.gitlab.com/legado4/newone

@@ -1,0 +1,99 @@
+helm upgrade zonedependency zone/zonedependency --version 1.0.71 -f dependency-values.yaml
+
+This command will clear all evicted pods
+kubectl get pods --all-namespaces | awk '$4=="Evicted" {print "kubectl delete pod --namespace=" $1 " " $2}' | sh
+
+To scale a deployment
+k scale deployment journalserializer -n zone-cardreconciliation-ns --replicas=0
+zone-cardreconciliation-ns      journalserializer
+
+K get deploy -A
+
+to edit a config map
+k edit cm -n zone-cardreconciliation-ns journalserializer-config
+
+To list all cm
+k get cm -A
+
+To describe a cm of a deployment
+k describe cm -n zone-cardreconciliation-ns journalserializer
+
+To edit a deployment
+k edit deployment journalserializer -n zone-cardreconciliation-ns
+
+To restart a pod
+
+k delete pod -n zone-cardreconciliation-ns      journalserializer-5bfbbcf8fd-f5ng5
+
+================================================================================
+To Install kubernetes
+apt update && sudo apt upgrade -y
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo swapoff -a
+apt-get update && sudo apt-get install -y apt-transport-https curl
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
+
+If you encounter any error here use the command to check the logs:
+journalctl -u kubelet:
+
+
+sudo kubeadm init
+
+If you encounter an error below like this?
+journalctl -u kubelet -- Logs begin at Wed 2023-12-06 03:20:07 PST, end at Fri 2024-02-23 08:17:46 PST. -- Feb 23 08:10:57 ubuntu systemd[1]: Started kubelet: The Kubernetes Node Agent. Feb 23 08:10:57 ubuntu systemd[1]: kubelet.service: Current command vanished from the unit file, execution of the command list won't be resumed. Feb 23 08:10:58 ubuntu systemd[1]: Stopping kubelet: The Kubernetes Node Agent... Feb 23 08:10:58 ubuntu systemd[1]: kubelet.service: Succeeded. Feb 23 08:10:58 ubuntu systemd[1]: Stopped kubelet: The Kubernetes Node Agent. Feb 23 08:10:58 ubuntu systemd[1]: Started kubelet: The Kubernetes Node Agent. Feb 23 08:10:58 ubuntu kubelet[4736]: E0223 08:10:58.803843 4736 run.go:74] "command failed" err="failed to load kubelet config file, path: /var/lib/kubelet/config.yaml, error: failed to load Kubelet> Feb 23 08:10:58 ubuntu systemd[1]: kubelet.service: Main process exited, code=exited, status=1/FAILURE Feb 23 08:10:58 ubuntu systemd[1]: kubelet.service: Failed with result 'exit-code'.
+
+Run this:
+Ensure that your var/lib/kubelet/config.yaml exist or populate it with this:
+"apiVersion: kubelet.config.k8s.io/v1beta1kubectl get pods
+No resources found in default namespace.
+kind: KubeletConfiguration
+clusterDNS:
+- 10.96.0.10"
+
+If problem persist?
+vim /etc/containerd/config.toml and comment out  
+disabled_plugins = ["cri"]
+
+After that, please ensure you copy the token to join the cluster.
+kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+
+===============================================================
+
+Connecting a K8 cluster to your Gitlab
+
+First install Helm
+
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+helm version
+
+Second:
+helm repo add gitlab https://charts.gitlab.io/
+helm repo update
+helm install gitlab-runner gitlab/gitlab-runner \
+  --set gitlabUrl=<GITLAB_URL> \
+  --set runnerRegistrationToken=<REGISTRATION_TOKEN> \
+  --set runners.image=<RUNNER_IMAGE> \
+  --set runners.privileged=true
+
+=================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

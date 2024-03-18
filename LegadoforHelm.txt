@@ -1,0 +1,23 @@
+To add the Bitnami Helm chart repository to your Kubernetes cluster, follow these steps:
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
+helm repo list
+================
+To upgrade the  to version 1.23  repository
+helm repo update
+helm search repo 
+then
+helm upgrade <release-name> repo --version 1.23.x
+kubectl get pods -l app.kubernetes.io/name=nginx
+
+
+
+helm upgrade 3 bitnami/nginx --version 1.23.0
+
+helm upgrade <release-name> <chart-name> --version <new-version>
+
+
+helm upgrade my-nginx bitnami/nginx --version 1.23.0
+helm upgrade my-nginx bitnami/nginx --version 1.23
+helm install my-nginx bitnami/nginx --version 15.12.2
+

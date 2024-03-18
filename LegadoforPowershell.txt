@@ -1,0 +1,213 @@
+This command will pipe all the scripts ran inside the directory created. 
+Start-Transcript <path-to-the-file-created>
+============================================
+
+==============================================
+Cmdlet structure
+Get -  Retrieves a resource, such as a file or a user.
+Set - Changes the data associated with a resource, such as a file or user property.
+New - Creates a resource, such as a file or user.
+Add - Adds a resource to a container of multiple resources.
+Remove - Deletes a resource from a container of multiple resources.
+============================================
+
+=============================================  
+This script will install an executable quietly
+msiexec /i "path-to-the-executable" /qn
+=================
+
+
+
+====================================
+This command will help you to update each of the cmdlets and display cmdlets for use.
+Get-Help *adapter*
+Get-Help *User*
+Get-Help *Browser*
+Get-Help *anything*
+Get-Help *firewall*
+Get-Help *address*
+==========================================================================
+
+
+
+===================================================================
+This command will list all the alias of cmdlet usage in Powershell
+Get-Alias
+++++++
+Import one or more modules into the current session.
+Import-Module 
++++++++++
+Retrieve a list of modules imported into the current session.
+Get-Module
++++++++++++
+Create a new script module.
+New-Module 
+++++++++++
+Remove modules from the current session.
+Remove-Module
+Here are the top 50 PowerShell cmdlets commonly used for automation along with brief descriptions of their usages:
+=================================================================================================
+
+
+==================================================================================================
+1. *Get-Help*: Retrieve information about cmdlets and concepts in PowerShell.
+2. *Get-Command*: Retrieve all available cmdlets and functions.
+3. *Get-Module*: Retrieve a list of modules imported into the current session.
+4. *Import-Module*: Import one or more modules into the current session.
+5. *Export-ModuleMember*: Export specified module members from the current session.
+6. *New-Module*: Create a new script module.
+7. *Remove-Module*: Remove modules from the current session.
+8. *Get-Process*: Retrieve a list of processes running on the system.
+9. *Stop-Process*: Stop one or more running processes.
+10. *Start-Process*: Start one or more processes.
+11. *Get-Service*: Retrieve a list of installed services.
+12. *Start-Service*: Start one or more services.
+13. *Stop-Service*: Stop one or more services.
+14. *Restart-Service*: Restart one or more services.
+15. *Get-EventLog*: Retrieve event log entries on the local or remote computer.
+16. *New-EventLog*: Create a new event log.
+17. *Remove-EventLog*: Remove an event log.
+18. *Clear-EventLog*: Clear event log entries.
+19. *Write-EventLog*: Write an event to an event log.
+20. *Get-WinEvent*: Retrieve events from the event logs based on specific criteria.
+21. *Get-ChildItem*: Retrieve items in a specified location (similar to 'dir' or 'ls' in other systems).
+22. *Copy-Item*: Copy files and folders.
+23. *Move-Item*: Move files and folders.
+24. *Remove-Item*: Remove files and folders.
+25. *New-Item*: Create a new item (file, folder, registry key, etc.).
+26. *Rename-Item*: Rename files and folders.
+27. *Get-Item*: Retrieve the properties of an item.
+28. *Set-Item*: Set the properties of an item.
+29. *Invoke-Command*: Run commands on local and remote computers.
+30. *Start-Job*: Start a PowerShell background job.
+31. *Get-Job*: Retrieve PowerShell background jobs.
+32. *Stop-Job*: Stop PowerShell background jobs.
+33. *Receive-Job*: Retrieve the results of PowerShell background jobs.
+34. *Wait-Job*: Wait for PowerShell background jobs to complete.
+35. *Register-ScheduledTask*: Register a new scheduled task.
+36. *Unregister-ScheduledTask*: Unregister a scheduled task.
+37. *Get-ScheduledTask*: Retrieve information about scheduled tasks.
+38. *Start-ScheduledTask*: Start a scheduled task.
+39. *Stop-ScheduledTask*: Stop a scheduled task.
+40. *New-ScheduledTaskTrigger*: Create a new scheduled task trigger.
+41. *New-ScheduledTaskAction*: Create a new scheduled task action.
+42. *New-ScheduledTaskPrincipal*: Create a new scheduled task principal.
+43. *Set-ScheduledTask*: Set properties of a scheduled task.
+44. *Get-Variable*: Retrieve information about variables.
+45. *Set-Variable*: Set the value of a variable.
+46. *Clear-Variable*: Clear the value of a variable.
+47. *Remove-Variable*: Remove a variable.
+48. *Get-Content*: Retrieve the content of a file.
+49. *Set-Content*: Set the content of a file.
+50. *Out-File*: Send output to a file.
+=========================================
+
+
+=====================================================
+1. To create a job:
+
+$trigger = New-ScheduledTaskTrigger -Once -At (Get-Date -Date "03/15/2024") -RepetitionInterval (New-TimeSpan -Minutes 5)
+$Action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-File 'C:\Users\ooladipupo\Documents\newjob.ps1'"
+$settings = New-ScheduledTaskSettingsSet
+Register-ScheduledTask -TaskName "My new task7" -Action $Action -Trigger $trigger -Description "Describe it" -Settings $settings
+Start-ScheduledTask -TaskName "My new task7"
+Get-ScheduledTask -Taskname "My new task7" | Get-ScheduledTaskInfo
+
+++++++++++++++++++++++++
+ To get the Job:
+ Get-ScheduledTask -Taskname "My new task7"
++++++++++++++++++++++++++
+Get-ScheduledTask -Taskname "My new task7" | Get-ScheduledTaskInfo
+++++++++++++++++++++++++++++++
+Unregister-ScheduledTask -TaskName "task name" -Confirm:$false
+=================================================================================
+
+
+
+
+=================================================================================
+2. Cmdlets for remote session
+First:
+Run Get-ExecutionPolicy
+And if Unrestricted. 
+Run Set-ExecutionPolicy RemoteSigned
+THEN:
+Run Enable-PSRemoting
+
+
+Name                              Category  Module                    Synopsis
+----                              --------  ------                    --------
+Disable-PSSessionConfiguration    Cmdlet    Microsoft.PowerShell.Core ...
+Enable-PSSessionConfiguration     Cmdlet    Microsoft.PowerShell.Core ...
+Get-PSSessionConfiguration        Cmdlet    Microsoft.PowerShell.Core ...
+New-PSSessionConfigurationFile    Cmdlet    Microsoft.PowerShell.Core ...
+Register-PSSessionConfiguration   Cmdlet    Microsoft.PowerShell.Core ...
+Set-PSSessionConfiguration        Cmdlet    Microsoft.PowerShell.Core ...
+Test-PSSessionConfigurationFile   Cmdlet    Microsoft.PowerShell.Core ...
+Unregister-PSSessionConfiguration Cmdlet    Microsoft.PowerShell.Core ..
+
+Ensuring that you are on the same Network with the remote computer.
+Enter-PSSession -ComputerName  Zone-Staging-3
+"Set-Item WSMan:\localhost\Client\AllowUnencrypted $false"
+===================================================================================
+
+
+
+
+====================================================================================
+3. Active Directory
+Cmdlets for Active Directory
+
+Get-ADUser: Retrieves one or more Active Directory users.
+Get-ADGroup: Retrieves one or more Active Directory groups.
+Get-ADComputer: Retrieves one or more Active Directory computers.
+Get-ADOrganizationalUnit: Retrieves one or more Active Directory organizational units.
+New-ADUser: Creates a new Active Directory user account.
+New-ADGroup: Creates a new Active Directory group.
+New-ADComputer: Creates a new Active Directory computer account.
+New-ADOrganizationalUnit: Creates a new Active Directory organizational unit.
+Set-ADUser: Modifies an existing Active Directory user account.
+Set-ADGroup: Modifies an existing Active Directory group.
+Set-ADComputer: Modifies an existing Active Directory computer account.
+Set-ADOrganizationalUnit: Modifies an existing Active Directory organizational unit.
+Remove-ADUser: Removes an Active Directory user account.
+Remove-ADGroup: Removes an Active Directory group.
+Remove-ADComputer: Removes an Active Directory computer account.
+Remove-ADOrganizationalUnit: Removes an Active Directory organizational unit.
+Enable-ADAccount: Enables an Active Directory user, computer, or service account.
+Disable-ADAccount: Disables an Active Directory user, computer, or service account.
+Move-ADObject: Moves an Active Directory object to a different container or organizational unit.
+Get-ADDomain: Retrieves information about an Active Directory domain.
+================================================================
+
+
+
+
+==================================================================
+4. IP address/Natting/Firewall
+
+cmdlets for IP address
+
+Get-DnsClientServerAddress        Function  DnsClient                 ...
+Set-DnsClientServerAddress        Function  DnsClient                 ...
+Add-NetNatExternalAddress         Function  NetNat                    ...
+Get-NetNatExternalAddress         Function  NetNat                    ...
+Remove-NetNatExternalAddress      Function  NetNat                    ...
+Get-NetFirewallDynamicKeywordA... Function  NetSecurity               ...
+Remove-NetFirewallDynamicKeywo... Function  NetSecurity               ...
+Get-NetFirewallAddressFilter      Function  NetSecurity               ...
+New-NetFirewallDynamicKeywordA... Function  NetSecurity               ...
+Set-NetFirewallAddressFilter      Function  NetSecurity               ...
+Update-NetFirewallDynamicKeywo... Function  NetSecurity               ...
+Remove-NetIPAddress               Function  NetTCPIP                  ...
+New-NetIPAddress                  Function  NetTCPIP                  ...
+Set-NetIPAddress                  Function  NetTCPIP                  ...
+Get-NetIPAddress                  Function  NetTCPIP                  ...
+Remove-NetworkSwitchEthernetPo... Function  NetworkSwitchManager      ...
+Set-NetworkSwitchEthernetPortI... Function  NetworkSwitchManager      ...
+New-VpnServerAddress              Function  VpnClient                 ...
+
+
+
+
+

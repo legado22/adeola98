@@ -1,0 +1,134 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20240315162305
+Username: APPZONEGROUP\ooladipupo
+RunAs User: APPZONEGROUP\ooladipupo
+Configuration Name: 
+Machine: DESKTOP-JKHD81T (Microsoft Windows NT 10.0.19045.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+Process ID: 23720
+PSVersion: 5.1.19041.4170
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.4170
+BuildVersion: 10.0.19041.4170
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\ooladipupo\Documents\Devops\now.txt
+PS C:\Users\ooladipupo\Documents> dir
+
+
+    Directory: C:\Users\ooladipupo\Documents
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        10/16/2023   8:39 PM                Custom Office Templates
+d-----         3/11/2024   3:46 PM                CVs
+d-----         3/15/2024   4:23 PM                Devops
+d-----          3/3/2024   7:07 AM                Ebube
+d-----         3/11/2024  12:38 PM                FCMB-UNION
+d-----          3/5/2024  10:58 AM                General
+d-----         3/15/2024   2:14 PM                get
+d-----          3/5/2024  11:20 AM                New-Gitrepo
+d-----          3/5/2024  11:20 AM                node_modules
+d-----         9/14/2023   3:10 PM                Python Scripts
+d-----          3/7/2024   5:15 PM                Python-app
+d-----         12/6/2023  12:35 PM                Virtual Machines
+d-----          2/6/2024   6:55 PM                WindowsPowerShell
+d-----         1/17/2024   8:13 PM                Zoom
+-a----          3/7/2024   5:15 PM            522 .gitlab-ci.yml
+-a----          3/7/2024   2:25 PM            143 .gitlab-ci2.yml
+-a----         3/14/2024   3:50 PM           1698 answrs.txt
+-a----         3/11/2024   8:35 AM         744744 Arbitration for 11th.xlsx
+-a----         3/13/2024   7:49 AM         801700 Arbitration for 13.xlsx
+-a----         3/14/2024   9:28 AM         823207 Arbitration for 14th.xlsx
+-a----         3/12/2024   8:59 AM         781448 Arbitration-For 12th.xlsx
+-a----          3/8/2024   9:07 AM         723630 Arbitrationfor8th.xlsx
+-a----          3/7/2024   8:46 AM          29231 Deola CvPDF.docx
+-a----          3/7/2024   8:47 AM         204151 Deola CvPDF.pdf
+-a----          3/5/2024  11:20 AM            134 DOckerfile
+-a----         9/11/2023   2:11 PM         279384 fep.png
+-a----          6/5/2023   8:14 AM           1744 filebat.py
+-a----          3/5/2024  11:20 AM            254 index.js
+-a----         3/15/2024   1:59 PM            109 install.bat
+-a----         2/20/2024   2:45 PM          16907 Intership Proposal.docx
+-a----        11/30/2023   2:17 PM            338 KSBISO.txt
+-a----          3/3/2024   6:41 AM             43 net
+-a----         3/15/2024   3:22 PM             50 newjob.ps1
+-a----          3/5/2024   7:23 PM             13 nice
+-a----          3/7/2024  11:42 AM              0 nslookup
+-a----          3/5/2024  11:20 AM          21046 package-lock.json
+-a----          3/5/2024  11:20 AM            544 package.json
+-a----         8/21/2023   4:46 PM         261327 pos-interface-specification-ver-1-161.pdf
+-a----         2/14/2024   2:32 PM          17622 Presentation Format.docx
+-a----          3/4/2024   9:52 AM          16444 Proposal for Youth programs.docx
+-a----          3/5/2024  11:20 AM           6251 README.md
+-a----          3/2/2024   5:27 PM          17264 Scripting Curriculum.docx
+-a----        12/28/2023   4:30 PM          62704 System Admin Curriculum.pdf
+-a----        10/20/2023  10:00 AM           2021 task.txt
+-a----          3/3/2024   6:50 AM            152 users.bat
+
+
+PS C:\Users\ooladipupo\Documents> ls
+
+
+    Directory: C:\Users\ooladipupo\Documents
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        10/16/2023   8:39 PM                Custom Office Templates
+d-----         3/11/2024   3:46 PM                CVs
+d-----         3/15/2024   4:23 PM                Devops
+d-----          3/3/2024   7:07 AM                Ebube
+d-----         3/11/2024  12:38 PM                FCMB-UNION
+d-----          3/5/2024  10:58 AM                General
+d-----         3/15/2024   2:14 PM                get
+d-----          3/5/2024  11:20 AM                New-Gitrepo
+d-----          3/5/2024  11:20 AM                node_modules
+d-----         9/14/2023   3:10 PM                Python Scripts
+d-----          3/7/2024   5:15 PM                Python-app
+d-----         12/6/2023  12:35 PM                Virtual Machines
+d-----          2/6/2024   6:55 PM                WindowsPowerShell
+d-----         1/17/2024   8:13 PM                Zoom
+-a----          3/7/2024   5:15 PM            522 .gitlab-ci.yml
+-a----          3/7/2024   2:25 PM            143 .gitlab-ci2.yml
+-a----         3/14/2024   3:50 PM           1698 answrs.txt
+-a----         3/11/2024   8:35 AM         744744 Arbitration for 11th.xlsx
+-a----         3/13/2024   7:49 AM         801700 Arbitration for 13.xlsx
+-a----         3/14/2024   9:28 AM         823207 Arbitration for 14th.xlsx
+-a----         3/12/2024   8:59 AM         781448 Arbitration-For 12th.xlsx
+-a----          3/8/2024   9:07 AM         723630 Arbitrationfor8th.xlsx
+-a----          3/7/2024   8:46 AM          29231 Deola CvPDF.docx
+-a----          3/7/2024   8:47 AM         204151 Deola CvPDF.pdf
+-a----          3/5/2024  11:20 AM            134 DOckerfile
+-a----         9/11/2023   2:11 PM         279384 fep.png
+-a----          6/5/2023   8:14 AM           1744 filebat.py
+-a----          3/5/2024  11:20 AM            254 index.js
+-a----         3/15/2024   1:59 PM            109 install.bat
+-a----         2/20/2024   2:45 PM          16907 Intership Proposal.docx
+-a----        11/30/2023   2:17 PM            338 KSBISO.txt
+-a----          3/3/2024   6:41 AM             43 net
+-a----         3/15/2024   3:22 PM             50 newjob.ps1
+-a----          3/5/2024   7:23 PM             13 nice
+-a----          3/7/2024  11:42 AM              0 nslookup
+-a----          3/5/2024  11:20 AM          21046 package-lock.json
+-a----          3/5/2024  11:20 AM            544 package.json
+-a----         8/21/2023   4:46 PM         261327 pos-interface-specification-ver-1-161.pdf
+-a----         2/14/2024   2:32 PM          17622 Presentation Format.docx
+-a----          3/4/2024   9:52 AM          16444 Proposal for Youth programs.docx
+-a----          3/5/2024  11:20 AM           6251 README.md
+-a----          3/2/2024   5:27 PM          17264 Scripting Curriculum.docx
+-a----        12/28/2023   4:30 PM          62704 System Admin Curriculum.pdf
+-a----        10/20/2023  10:00 AM           2021 task.txt
+-a----          3/3/2024   6:50 AM            152 users.bat
+
+
+PS C:\Users\ooladipupo\Documents> Get-Help *User*
+Do you want to run Update-Help?
+The Update-Help cmdlet downloads the most current Help files for Windows PowerShell modules, and installs them on your computer. For more information about the Update-Help cmdlet, see https:/go.microsoft.com/fwlink/?LinkId=210614.
+&Yes  &No  &Suspend
+Y

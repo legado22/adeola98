@@ -1,0 +1,16 @@
+List all services (both running and not running):
+bash
+
+systemctl list-unit-files --type=service
++++++++++++++++++++++++++++++++++++++
+List all active running services 
+systemctl list-units --type=service --state=active
+++++++++++++++++++++++++++++++++
+list all failed services
+systemctl list-units --type=service --state=failed
+=============================================
+List all loaded services
+systemctl list-units --type=service --state=loaded
+==============================================
+
+

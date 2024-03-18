@@ -1,0 +1,22 @@
+To open a port on Linux
+To open a port on Linux, you typically need to configure the firewall to allow traffic on that port. The specific steps can vary depending on the firewall software you are using, but here are the general steps for commonly used firewalls
+
+sudo firewall-cmd --zone=public --add-port=5986/tcp --permanent
+sudo iptables -A INPUT -p tcp --dport 5986 -j ACCEPT
+sudo firewall-cmd --reload
+sudo ufw allow 5986/tcp
+sudo ufw enable
+=========================================================
+For Windows Powershell
+Both commands are used to create a new inbound firewall rule to allow traffic on port 5986
+New-NetFirewallRule -DisplayName "Allow WinRM HTTPS" `
+                    -Direction Inbound `
+                    -Protocol TCP `
+                    -LocalPort 5986 `
+                    -Action Allow
+
+netsh advfirewall firewall add rule name="Open Port" dir=in action=allow protocol=TCP localport=5986
+
+
+
+
