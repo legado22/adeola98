@@ -30,9 +30,10 @@ This command will initialize git in the current directory that you are.
 git init
 
 This command will link your Git [Local repo] to Github[Remote Repo]
-git remote add origin <url of the remote repository>
-git config --global user.name "Your GitHub Username"
-git config --global user.email "Your GitHub Email Address"
+git remote add origin https://github.com/legado22/Class
+git config --global user.name legado22
+git config --global user.email lesmarkoladipupo402@gmail.com
+git clone https://github.com/legado22/Class.git
 
 
 git pull origin main
