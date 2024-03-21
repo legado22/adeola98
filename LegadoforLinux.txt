@@ -13,4 +13,44 @@ List all loaded services
 systemctl list-units --type=service --state=loaded
 ==============================================
 
+To create additional volume and mount it.
+To create a new partition named sda partition with approximately 10GB of space, you can follow these steps:
+
+1. Identify Available Space: Check the available space on your disk to ensure there is enough unallocated space to create the new partition.
+
+2. Create Partition: You can use a partitioning tool like fdisk or parted to create the new partition. Here's how to do it using fdisk: 
+sudo fdisk /dev/sda
+Once inside fdisk:
+
+Type n to create a new partition.
+Choose the default partition number (e.g., 6).
+Select the starting sector and size. For approximately 10GB, you might specify +10G.
+Type w to write the changes and exit.
+
+3. Format the Partition: After creating the partition, you need to format it with a filesystem. For example, to format the new partition as ext4, you can use:
+sudo mkfs.ext4 /dev/sda
+
+4. Mount the Partition: Once formatted, you can mount the new partition to a directory. For example, to mount it to /mnt/sda6, you can use:
+sudo mkdir /mnt/sda6
+sudo mount /dev/sda6 /mnt/sda6
+
+5. Verify: Verify that the partition has been created and mounted correctly by checking the output of lsblk or df -h. You should see the new partition listed and mounted.
+
+Update /etc/fstab: If you want the partition to be automatically mounted at boot, you can add an entry to /etc/fstab. You would need to add a line similar to this:
+
+UUID=25fb3d7e-247a-4b4c-962c-3f5fea079b35 /mnt/sda3       ext4           defaults   0       0
+
+After you have added all the entries in etc/fstab:
+
+RUN mount -a
+
+
+6. But before then:
+Verify your UUID: The UUID (Universally Unique Identifier) is a unique identifier assigned to a filesystem or partition. It's typically generated when the partition is created. To find the UUID of a partition, you can use the blkid command.
+
+Here's how you can find the UUID of your newly created partition: blkid/dev/partion
+
+
+
+
 

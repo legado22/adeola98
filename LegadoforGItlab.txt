@@ -5,3 +5,46 @@ docker build -t registry.gitlab.com/legado4/newone .
 Enter Username and password
 docker build -t registry.gitlab.com/legado4/newone .
 docker push registry.gitlab.com/legado4/newone
+
+
+===============================================
+
+Installing the agent for Kubernetes
+To connect a Kubernetes cluster to GitLab, you must install an agent in your cluster.
+Create an agent configuration file
+For configuration settings, the agent uses a YAML file in the GitLab project.
+
+1. To create an agent configuration file:
+
+Choose a name for your agent. The agent name follows the DNS label standard from RFC 1123. The name must:
+
+Be unique in the project.
+Contain at most 63 characters.
+Contain only lowercase alphanumeric characters or -.
+Start with an alphanumeric character.
+End with an alphanumeric character.
+2. In the repository, in the default branch, create an agent configuration file at the root:
+
+3. Create a config.yaml with this paths: .gitlab/agents/myk8cluster/config.yaml
+in your project root directory
+
+"ci_access:
+  projects:
+    - id: "legado4/git-lab-fork8s"
+
+4. Select Operate > Kubernetes clusters.
+Select Connect a cluster (agent).
+If you want to create a configuration with CI/CD defaults, type a name.
+If you already have an agent configuration file, select it from the list.
+Select Register an agent.
+GitLab generates an access token for the agent. You need this token to install the agent in your cluster.
+
+helm repo add gitlab https://charts.gitlab.io
+helm repo update
+helm upgrade --install myk8cluster gitlab/gitlab-agent \
+    --namespace gitlab-agent-myk8cluster \
+    --create-namespace \
+    --set image.tag=v16.10.1 \
+    --set config.token=glagent-WPbCPysMnsbC_Ly5vyZt-qdw7xYrAzPXJUUo5sTPNGJrfzctSQ \
+    --set config.kasAddress=wss://kas.gitlab.com
+

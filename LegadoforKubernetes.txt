@@ -27,19 +27,73 @@ k delete pod -n zone-cardreconciliation-ns      journalserializer-5bfbbcf8fd-f5n
 
 ================================================================================
 To Install kubernetes
-apt update && sudo apt upgrade -y
-sudo systemctl start docker
-sudo systemctl enable docker
-sudo swapoff -a
-apt-get update && sudo apt-get install -y apt-transport-https curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+First, It is required to install Docker
+
+sudo apt update
+apt install -y apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+apt update
+apt install -y docker-ce
+systemctl start docker
+systemctl enable docker
+usermod -aG docker $USER
+docker --version
+
+THEN:
+Install K8s
 sudo apt-get update
-sudo apt-get install -y kubelet kubeadm kubectl
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF
+
+sudo modprobe overlay
+sudo modprobe br_netfilter
+
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward = 1
+EOF
+
+sudo sysctl --system
+
+# Verify modules and sysctl params
+lsmod | grep br_netfilter
+lsmod | grep overlay
+sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
+
+# Step 2: Disable Swap
+echo "Disabling swap"
+sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+sudo swapoff -a
+sudo modprobe overlay
+sudo modprobe br_netfilter
+sudo apt-get install -y apt-transport-https ca-certificates curl
+sudo mkdir -p -m 755 /etc/apt/keyrings
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+
+[[ubeadm join 192.168.80.129:6443 --token b5ztie.iyqaio652jwvm2zy \
+	--discovery-token-ca-cert-hash sha256:63c2b97ef08104f54dc729f0e13e59dda737a41c30a1e39034a36085222aa965 ]]
+
+kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+
 
 If you encounter any error here use the command to check the logs:
 journalctl -u kubelet:
 
+=========
+To remove all k8s 
+sudo apt-get remove --purge kubelet kubeadm kubectl kubernetes-cni
+sudo apt-get purge -y kubelet kubeadm kubectl kubernetes-cni
+sudo rm -rf /etc/kubernetes
+sudo rm /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+
+=========
 
 sudo kubeadm init
 
@@ -63,7 +117,7 @@ kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 
 ===============================================================
 
-Connecting a K8 cluster to your Gitlab
+Connecting a K8 cluster to your Gitlab Repo
 
 First install Helm
 
