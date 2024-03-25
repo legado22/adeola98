@@ -5,7 +5,71 @@ sudo apt install openjdk-11-jdk
 wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
 sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
 sudo apt update
+
+If you are getting an error like:
+W: GPG error: https://pkg.jenkins.io/debian-stable binary/ Release: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 5BA31D57EF5975CA
+E: The repository 'http://pkg.jenkins.io/debian-stable binary/ Release' is not signed.
+N: Updating from such a repository can't be done securely, and is therefore disabled by default.
+N: See apt-secure(8) manpage for repository creation and user configuration details.
+root@ubuntu:/home/deola# curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
+>   /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+Then run 'apt update' and the below
+
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
+  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+sudo apt update
 sudo apt install jenkins
 sudo systemctl start jenkins
 sudo systemctl enable jenkins
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+56a0375dd1ae40f49a443ba630bb478b
+
+Now:
+
+Run 'ufw enable' to enable firewall to activate. 
+'ufw status' to see the status of what was enabled
+'ufw allow 8080' to allow traffic via the port
+
+Now:
+
+You can access Jenkins UI via
+http://localhost:8080 or http://ip_address_or_domain:8080
+
+=============================
+
+Did you forget or lose your password to the Jenkins dashboard? Fret not. 
+And for some weird reasons, you may not have access to the initialAdminPassword in /var/lib/jenkins/secrets/ (Yes, you may not have access to it).
+
+Workaround:
+Login from the terminal and use your desired editor to access the config.xml /var/lib/jenkins/config.xml. 
+Set the <useSecurity>true</useSecurity> from true to false. 
+You can log in to the dashboard without credential prompts and create another password. 
+
+
+========================================
+To integrate K8s with Jenkins
+
+1. Install K8s plugins in your Jenkins UI.
+2. Create a namespace in your k8s cluster using: kubectl create namespace jenkins
+--Create a service account
+3. kubectl create sa jenkins -n jenkins
+4. kubectl create token jenkins -n jenkins --duration=8760h
+
+"eyJhbGciOiJSUzI1NiIsImtpZCI6InhZX1hUN2ZSMG9DbGx4NWFkV3VkNUVFTjRab3VXMWlQTUR3cjdheG5sbzAifQ.eyJhdWQiOlsiaHR0cHM6Ly9rdWJlcm5ldGVzLmRlZmF1bHQuc3ZjLmNsdXN0ZXIubG9jYWwiXSwiZXhwIjoxNzQyNzQ3Njc3LCJpYXQiOjE3MTEyMTE2NzcsImlzcyI6Imh0dHBzOi8va3ViZXJuZXRlcy5kZWZhdWx0LnN2Yy5jbHVzdGVyLmxvY2FsIiwia3ViZXJuZXRlcy5pbyI6eyJuYW1lc3BhY2UiOiJqZW5raW5zIiwic2VydmljZWFjY291bnQiOnsibmFtZSI6ImplbmtpbnMiLCJ1aWQiOiJjNmM1ZDFhMS1iZDg1LTQzMTQtYjI0MC1lZmYyYmY0ZjY4OGMifX0sIm5iZiI6MTcxMTIxMTY3Nywic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50OmplbmtpbnM6amVua2lucyJ9.ZIsbTIzNK9SdtVkPJ1X3lJBXP5p6EVwbSYU4U8LdbVYhbcwgNjqMXlhHs2crcSZ-M65Dg-qJloNio8gFLciiT7sV7Z-N5SwfJTnn4fRJLhuIo4pQRGoiRHtK3_UdOua8X2JomH2eXQILcWwCzBD9oAyT0X0m13gPf3NS0XjtUAcYKOn64nQSjv9uWt3H0pm8_O87TpnxscdgWe9Pmci2315Rr_fhqnF5hI1A2gw2xdWneu9FHJxvt0NVC6gWYPaTQe2-cf8CMj-LE1FpAKV7FL074R8Q0EWIPRlVMVO-aYOxewO_MA7jqsarBZukt-kNf00OqZ4ZlARpaCZmhjHurg"
+
+kubectl create rolebinding jenkins-admin-binding --clusterrole=admin --serviceaccount=jenkins:jenkins --namespace=jenkins
+kubectl config view
+=====================================
+
+from Dashboard > Manage Jenkins > Clouds > Kubernetes > Configure
+Insert https://192.168.80.129:6443 inside Kubernetes URL 
+
+Go down:
+on the credentials drop down +add click on jenkins, you will see Jenkins Credentials Provider: Jenkins
+You will see a 'Kind' tab and select 'secret text' paste the token generated from k8s to secret. 
+

@@ -19,8 +19,10 @@ GIT as your local Hub
 You can refer to the directory C:\Users\ooladipupo\Documents\Devops as a repository if it contains a .git directory. The presence of the .git directory indicates that the directory is a Git repository, which means it tracks changes to files and contains all the necessary Git metadata.
 
 ======================================================
-
+The Word repository means a logical container or a store house. 
 =====================================================
+Navigate to the preferred working directory where you want to use as your GIT repo
+
 
 Commands in GIT
 This command will check if there is an existing repository

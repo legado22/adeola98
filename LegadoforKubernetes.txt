@@ -117,6 +117,32 @@ kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 
 ===============================================================
 
+==============================================================
+
+Kubernetes Architecture
+
+1. 𝗰𝗹𝗼𝘂𝗱-𝗰𝗼𝗻𝘁𝗿𝗼𝗹𝗹𝗲𝗿-𝗺𝗮𝗻𝗮𝗴𝗲𝗿: Links your cluster with the cloud provider API which enables cloud providers to release features at a different pace as compared to the main k8s project. It is also responsible for Node, Route and Service Controller.
+
+2. 𝗲𝘁𝗰𝗱: It is a Multiversion Consistent Immutable Key-Value store for storing cluster data(config, state, metadata) which uses gRPC for its messaging protocol.
+
+Only the API server has the privileges to connect to etcd, the rest of the components need to go through the API server for any state retrieval.
+
+3. 𝗸𝘂𝗯𝗲-𝗮𝗽𝗶-𝘀𝗲𝗿𝘃𝗲𝗿: This is the most lazy component of k8s. The main function is to process the API calls. It is designed to scale horizontally.
+
+4. 𝗸𝘂𝗯𝗲-𝘀𝗰𝗵𝗲𝗱𝘂𝗹𝗲𝗿: It watches for schedulable resources and binds them to nodes based on the resource availability by taking multiple factors into account like taints, tolerations, and node affinity.
+
+5. 𝗸𝘂𝗯𝗲-𝗰𝗼𝗻𝘁𝗿𝗼𝗹𝗹𝗲𝗿-𝗺𝗮𝗻𝗮𝗴𝗲𝗿: It implements the core control loops through which it watches for any changes and does the necessary changes. Takes care of garbage collection, and namespace life cycle.
+
+6. 𝗸𝘂𝗯𝗲𝗹𝗲𝘁: Makes sure that the containers are running in a healthy state and manages the node’s resources.
+
+7. 𝗸𝘂𝗯𝗲-𝗽𝗿𝗼𝘅𝘆: It is responsible for all the underlying network configuration on nodes. Example: Service to Pod IP Translation.
+
+8. 𝗖𝗥𝗜: Container Runtime Interface manages the life cycle of containers/images and enables the working of containers on k8s.
+
+9. 𝗣𝗼𝗱𝘀: They are a bunch of processes running till completion. I call them FTC(Functions till completion)
+
+================================================================
+
 Connecting a K8 cluster to your Gitlab Repo
 
 First install Helm

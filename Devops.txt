@@ -1,1 +1,3 @@
-DevOps is the combination of cultural philosophies, practices, and tools that increases an organization’s ability to deliver applications and services at high velocity. Put simply, DevOps is a way for development teams and operations teams to work better together and ultimately share the responsibility of the software they build. 
+DevOps is the combination of cultural philosophies, practices, and tools that increases an organization’s ability to deliver applications and services at high velocity. Put simply, DevOps is a way for development teams and operations teams to work better together and ultimately share the responsibility of the software they build. Kibana2023+
+
+failed to resolve hostname updates.jenkins.io. Perhaps you need to configure HTTP proxy
